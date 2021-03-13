@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"> 
+<head>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <form onsubmit="create(event)" method="POST">            
+            <input type="file" id="file">
+            <!-- <input type="text" id="file" placeholder="url"> -->
+            <input type="text" name="caption" placeholder="caption">
+            <button onclick="apply()">Apply</button>
+            <button onclick="remcaption()">Remove Caption</button>
+            <button onclick="horfit()">Fit horizontally</button>
+            <button onclick="verfit()">Fit vertically</button>
+            <button type="submit">Download</button>
+        </form>
+        <div id="capture">
+            <img id="bg" src="template_dark.jpg">            
+            <div id="text-content">                
+                <p id="caption">
+                    sample caption
+                </p>
+            </div>
+            <div id="picbox">
+                <img id="memeImage" src="upload.jpg">
+            </div>
+        </div>
+        <h1 style="display: none;">Download Images</h1>        
+        <!-- <button id="download">Download</button> -->
+    </main>
+    <script src="html2canvas.min.js"></script>
+    <script>
+        // window.addEventListener('load', function() {
+        //     document.querySelector('input[type="file"]').addEventListener('change', function() {
+        //         if (this.files && this.files[0]) {
+        //             document.getElementById('memeImage').src = document.getElementById('file').files[0].name;
+        //         }
+        //     });
+        // });
+
+        window.addEventListener('load', function() {
+            document.querySelector('input[type="file"]').addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    let img = document.getElementById('memeImage');
+                    img.onload = () => {
+                        URL.revokeObjectURL(img.src);  // no longer needed, free memory
+                    }
+                    console.log(img);
+                    img.src = URL.createObjectURL(this.files[0]); // set src to blob url
+                }
+            });
+        });
+        function horfit() {
+            event.preventDefault();
+            document.getElementById("memeImage").style.width = "100%";
+            document.getElementById("memeImage").style.height = null;
+            document.getElementById("picbox").style.display = "flex";
+            document.getElementById("picbox").style.alignItems = "center";
+        }
+        function verfit() {
+            event.preventDefault();
+            document.getElementById("memeImage").style.height = "800px";
+            document.getElementById("memeImage").style.width = null;
+            document.getElementById("picbox").style.display = "block";
+        }
+        function apply() {            
+            event.preventDefault();
+            document.getElementById('caption').style.display = null;            
+            document.getElementById('caption').innerHTML = document.querySelector('[name="caption"]').value;            
+        }
+        function remcaption() {            
+            event.preventDefault();
+            document.getElementById('caption').style.display = "none";
+            document.getElementById("picbox").style.height = "900px";
+            document.getElementById("picbox").style.bottom = "1010px";
+        }
+        function create(event) {
+            event.preventDefault();
+            setTimeout(() => {      
+                let name = document.getElementById('caption').innerHTML;          
+                html2canvas(document.querySelector("#capture"), {allowTaint : true}).then(canvas => {                    
+                    // document.body.appendChild(canvas);
+                    var btn = document.createElement('button');
+                    var a = document.createElement('a');
+                    a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+                    a.download = name + `.jpg`;
+                    a.innerHTML = `Download`+name;
+                    btn.appendChild(a);
+                    a.id = name;
+                    document.body.appendChild(btn);
+                    document.getElementById(name).click();
+
+                });
+            }, 100);
+        }
+        //document.getElementById("capture").style.display="none";
+        
+    </script>
+</body>
+
+</html>

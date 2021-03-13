@@ -1,0 +1,35 @@
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    color: #ffffff;
+
+}
+#capture {
+    width: 1080px;
+    height: 1080px;
+    text-align: center;
+}
+#picbox {
+    position: relative;
+    bottom: 1080px;
+    padding: 50px;
+    width: 980px;
+    height: 800px;
+    z-index: 0;
+}
+#memeImage {
+    border-radius: 32px;
+}
+
+#text-content {
+    width: 1080px;
+    position: relative;
+    top: -1020px;
+}
+#caption {
+    text-align: center;
+    font-size: 48px;
+}
+form {
+    position: relative;
+    z-index: 2;
+}
