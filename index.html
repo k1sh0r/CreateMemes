@@ -63,17 +63,20 @@
         function verfit() {
             event.preventDefault();
             document.getElementById("memeImage").style.height = "800px";
+            document.getElementById("picbox").style.height = null;
             document.getElementById("memeImage").style.width = null;
             document.getElementById("picbox").style.display = "block";
         }
         function apply() {            
             event.preventDefault();
             document.getElementById('caption').style.display = null;            
-            document.getElementById('caption').innerHTML = document.querySelector('[name="caption"]').value;            
+            document.getElementById('caption').innerHTML = document.querySelector('[name="caption"]').value;
+            document.getElementById("picbox").style.bottom = null;
         }
         function remcaption() {            
             event.preventDefault();
             document.getElementById('caption').style.display = "none";
+            document.getElementById("memeImage").style.height = "100%";
             document.getElementById("picbox").style.height = "900px";
             document.getElementById("picbox").style.bottom = "1010px";
         }
