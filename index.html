@@ -3,12 +3,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"> 
 <head>
     <link href="style.css" rel="stylesheet">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 
 <body>
     <main>
-        <form onsubmit="create(event)" method="POST">            
-            <input type="text" id="file" placeholder="url">
+        <form onsubmit="create(event)" method="POST">
+            <input type="file" id="template">
+            <label>or paste url </label>
+            <input type="text" id="templateUrl" placeholder="url">
             <input type="text" name="caption" placeholder="caption">
             <button onclick="apply()">Apply</button>
             <button onclick="remcaption()">Remove Caption</button>
@@ -30,8 +33,12 @@
         <h1 style="display: none;">Download Images</h1>        
         <!-- <button id="download">Download</button> -->
     </main>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    
     <script>
+        var memeImage = document.getElementById("memeImage");
+        var picbox = document.getElementById("picbox");
+        var caption = document.getElementById('caption');
+
         // window.addEventListener('load', function() {
         //     document.querySelector('input[type="file"]').addEventListener('change', function() {
         //         if (this.files && this.files[0]) {
@@ -41,7 +48,7 @@
         // });
 
         window.addEventListener('load', function() {
-            document.querySelector('input[type="file"]').addEventListener('change', function() {
+            document.getElementById('template').addEventListener('change', function() {
                 if (this.files && this.files[0]) {
                     let img = document.getElementById('memeImage');
                     img.onload = () => {
@@ -54,30 +61,33 @@
         });
         function horfit() {
             event.preventDefault();
-            document.getElementById("memeImage").style.width = "100%";
-            document.getElementById("memeImage").style.height = null;
-            document.getElementById("picbox").style.display = "flex";
-            document.getElementById("picbox").style.alignItems = "center";
+            memeImage.style.width = "100%";
+            memeImage.style.height = null;
+            picbox.style.display = "flex";
+            picbox.style.alignItems = "center";
         }
         function verfit() {
             event.preventDefault();
-            document.getElementById("memeImage").style.height = "800px";
-            document.getElementById("picbox").style.height = null;
-            document.getElementById("memeImage").style.width = null;
-            document.getElementById("picbox").style.display = "block";
+            memeImage.style.height = "800px";
+            memeImage.style.width = null;
+            picbox.style.height = null;
+            picbox.style.display = "block";
         }
         function apply() {            
             event.preventDefault();
-            document.getElementById('caption').style.display = null;            
-            document.getElementById('caption').innerHTML = document.querySelector('[name="caption"]').value;
-            document.getElementById("picbox").style.bottom = null;
+            caption.style.display = null;
+            if(document.querySelector('[name="caption"]').value) {
+                caption.innerHTML = document.querySelector('[name="caption"]').value;
+            }
+            memeImage.src = document.getElementById('templateUrl').value;
+            picbox.style.bottom = null;
         }
         function remcaption() {            
             event.preventDefault();
-            document.getElementById('caption').style.display = "none";
-            document.getElementById("memeImage").style.height = "100%";
-            document.getElementById("picbox").style.height = "900px";
-            document.getElementById("picbox").style.bottom = "1010px";
+            memeImage.style.height = "100%";
+            caption.style.display = "none";
+            picbox.style.height = "900px";
+            picbox.style.bottom = "1010px";
         }
         function create(event) {
             event.preventDefault();
