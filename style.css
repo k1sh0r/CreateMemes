@@ -32,4 +32,5 @@ body {
 form {
     position: relative;
     z-index: 2;
+    color: black;
 }
