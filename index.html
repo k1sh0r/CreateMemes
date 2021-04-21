@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"> 
+<html>
 <head>
+    <title>Create Memes</title>
+    <meta charset="utf-8" name="viewport" 
+    content= "width=device-width, initial-scale=1.0">
     <link href="style.css" rel="stylesheet">
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <main>
         <form onsubmit="create(event)" method="POST">
             <input type="file" id="template">
-            <label>or paste url </label>
-            <input type="text" id="templateUrl" placeholder="url">
+            <!-- <label>or paste url </label>
+            <input type="text" id="templateUrl" placeholder="url"> -->
             <input type="text" name="caption" placeholder="caption">
             <button onclick="apply()">Apply</button>
             <button onclick="remcaption()">Remove Caption</button>
@@ -22,9 +26,7 @@
         <div id="capture">
             <img id="bg" src="template_dark.jpg">            
             <div id="text-content">                
-                <p id="caption">
-                    sample caption
-                </p>
+                <p id="caption">sample caption</p>
             </div>
             <div id="picbox">
                 <img id="memeImage" src="upload.jpg">
@@ -35,6 +37,11 @@
     </main>
     
     <script>
+        var mq = window.matchMedia( "(max-width: 500px)" );
+            if (mq.matches) {                
+                document.getElementById("capture").style.transform = "scale(" + window.innerWidth/1080*96 + "%)";
+            }
+
         var memeImage = document.getElementById("memeImage");
         var picbox = document.getElementById("picbox");
         var caption = document.getElementById('caption');
