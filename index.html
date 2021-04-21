@@ -41,7 +41,8 @@
         var scale = window.innerWidth/1080*96;
         var capture = document.getElementById("capture");
         
-        if (mq.matches) {                
+        if (mq.matches) {
+            capture.style.transformOrigin = "0% 0%";
             capture.style.webkitTransform = "scale(" + scale + "%)";
             capture.style.MozTransform = "scale(" + scale + "%)";
             capture.style.msTransform = "scale(" + scale + "%)";
