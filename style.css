@@ -4,6 +4,8 @@ body {
 
 }
 #capture {
+    position: absolute;
+    top: 100px;
     width: 1080px;
     height: 1080px;
     text-align: center;
